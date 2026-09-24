@@ -1,572 +1,811 @@
-# 🐍 Guia de Comandos Streamlit
+# Author: Raphael Campos Squilaro
+# Project: Learning streamlit
 
-Aplicação web desenvolvida em **Python + Streamlit** com o objetivo de apresentar, de forma prática e interativa, os principais comandos e componentes do Streamlit.
+# ============================================================
+# IMPORTAÇÃO DAS BIBLIOTECAS
+# ============================================================
 
-O projeto foi desenvolvido como material de **aprendizado e consulta**, permitindo visualizar a explicação de cada comando juntamente com exemplos de código e seu resultado na interface.
-
----
-
-## 👨‍💻 Autor
-
-**Raphael Campos Squilaro**
-
-Projeto: **Learning Streamlit**
-
----
-
-## 📚 Sobre o projeto
-
-Este projeto é um guia interativo para quem está começando a trabalhar com **Streamlit**.
-
-A aplicação possui um menu lateral que permite navegar entre diferentes categorias de comandos.
-
-Cada seção apresenta:
-
-- 📖 Explicação do comando
-- 💻 Exemplo de código
-- 🖥️ Demonstração do componente
-- 🧩 Aplicações práticas
-- 📊 Exemplos de dados e gráficos
-
-A proposta é aprender Streamlit através de exemplos executáveis, em vez de apenas consultar documentação.
-
----
-
-## 🚀 Funcionalidades
-
-O projeto apresenta exemplos das seguintes funcionalidades:
-
-### 🏠 Início
-
-Introdução ao Streamlit e exemplo básico de uma aplicação.
-
-Exemplo:
-
-```python
 import streamlit as st
+import pandas as pd
+
+# ============================================================
+# CONFIGURAÇÃO DA PÁGINA
+# ============================================================
+
+st.set_page_config(
+    page_title="Guia de Comandos Streamlit",
+    page_icon="🐍",
+    layout="wide"
+)
+
+# ============================================================
+# ESTILO
+# ============================================================
+
+st.markdown("""
+<style>
+    .main-title {
+        font-size: 42px;
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .subtitle {
+        font-size: 20px;
+        color: #777;
+        margin-top: 0;
+    }
+
+    .command-box {
+        padding: 15px;
+        border-radius: 10px;
+        background-color: #f5f5f5;
+        margin-bottom: 10px;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+
+# ============================================================
+# MENU LATERAL
+# ============================================================
+
+st.sidebar.title("🐍 Streamlit")
+
+st.sidebar.markdown(
+    "### Guia de comandos"
+)
+
+pagina = st.sidebar.radio(
+    "Navegação",
+    [
+        "🏠 Início",
+        "📝 Textos",
+        "🔘 Botões e entradas",
+        "📐 Layout",
+        "📊 Dados e gráficos",
+        "💬 Mensagens",
+        "📁 Arquivos",
+        "🧩 Componentes",
+        "⚙️ Configuração",
+        "🚀 Exemplo completo"
+    ]
+)
+
+
+# ============================================================
+# INÍCIO
+# ============================================================
+
+if pagina == "🏠 Início":
+
+    st.markdown(
+        '<p class="main-title">🐍 Guia de Streamlit</p>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        '<p class="subtitle">Aprenda os principais comandos do Streamlit '
+        'de forma prática e interativa.</p>',
+        unsafe_allow_html=True
+    )
+
+    st.divider()
+
+    st.header("O que é Streamlit?")
+
+    st.write("""
+    Streamlit é um framework Python utilizado para criar aplicações web
+    interativas de maneira rápida, especialmente para projetos de dados,
+    dashboards, inteligência artificial e protótipos.
+    """)
+
+    st.info(
+        "A ideia principal do Streamlit é transformar código Python "
+        "em uma interface web sem precisar escrever HTML, CSS e JavaScript."
+    )
+
+    st.header("🚀 Como começar")
+
+    st.code(
+        "pip install streamlit",
+        language="bash"
+    )
+
+    st.code(
+        "streamlit run app.py",
+        language="bash"
+    )
+
+    st.header("Estrutura básica")
+
+    st.code(
+        '''import streamlit as st
 
 st.title("Minha aplicação")
-st.write("Olá, mundo!")
-```
+st.write("Olá, mundo!")''',
+        language="python"
+    )
 
----
+    st.success(
+        "Crie um arquivo chamado app.py e execute "
+        "`streamlit run app.py` no terminal."
+    )
 
-### 📝 Textos
 
-Demonstra os principais comandos utilizados para apresentar textos:
+# ============================================================
+# TEXTOS
+# ============================================================
 
-- `st.title()`
-- `st.header()`
-- `st.subheader()`
-- `st.write()`
-- `st.markdown()`
-- `st.code()`
-- `st.caption()`
+elif pagina == "📝 Textos":
 
----
+    st.title("📝 Comandos para textos")
 
-### 🔘 Botões e entradas
+    st.write(
+        "O Streamlit possui vários comandos para apresentar "
+        "informações na tela."
+    )
 
-Exemplos de componentes de interação com o usuário:
+    st.subheader("st.title()")
 
-- `st.button()`
-- `st.text_input()`
-- `st.number_input()`
-- `st.selectbox()`
-- `st.checkbox()`
+    st.write("Cria o título principal da página.")
 
-Exemplo:
+    st.code(
+        'st.title("Meu Dashboard")',
+        language="python"
+    )
 
-```python
-nome = st.text_input("Digite seu nome")
+    st.title("Meu Dashboard")
 
-if nome:
-    st.write(f"Olá, {nome}!")
-```
+    st.divider()
 
----
+    st.subheader("st.header()")
 
-### 📐 Layout
+    st.write("Cria um cabeçalho de seção.")
 
-Demonstra recursos para organização da interface:
+    st.code(
+        'st.header("Vendas")',
+        language="python"
+    )
 
-- `st.columns()`
-- `st.tabs()`
-- `st.expander()`
-- `st.divider()`
+    st.header("Vendas")
 
-Exemplo:
+    st.divider()
 
-```python
-col1, col2 = st.columns(2)
+    st.subheader("st.subheader()")
+
+    st.write("Cria um título menor dentro de uma seção.")
+
+    st.code(
+        'st.subheader("Vendas por mês")',
+        language="python"
+    )
+
+    st.subheader("Vendas por mês")
+
+    st.divider()
+
+    st.subheader("st.write()")
+
+    st.write(
+        "É um dos comandos mais versáteis do Streamlit. "
+        "Pode exibir texto, números, objetos e outros elementos."
+    )
+
+    st.code(
+        'st.write("Olá, Streamlit!")',
+        language="python"
+    )
+
+    st.write("Olá, Streamlit!")
+
+    st.divider()
+
+    st.subheader("st.markdown()")
+
+    st.write("Permite utilizar Markdown.")
+
+    st.code(
+        '''st.markdown(
+    "**Texto em negrito** e *texto em itálico*"
+)''',
+        language="python"
+    )
+
+    st.markdown(
+        "**Texto em negrito** e *texto em itálico*"
+    )
+
+    st.divider()
+
+    st.subheader("st.code()")
+
+    st.write("Exibe código formatado.")
+
+    st.code(
+        '''def saudacao(nome):
+    return f"Olá, {nome}!"''',
+        language="python"
+    )
+
+    st.divider()
+
+    st.subheader("st.caption()")
+
+    st.write("Exibe um texto pequeno, normalmente utilizado como observação.")
+
+    st.code(
+        'st.caption("Última atualização: hoje")',
+        language="python"
+    )
+
+    st.caption("Última atualização: hoje")
+
+
+# ============================================================
+# BOTÕES E ENTRADAS
+# ============================================================
+
+elif pagina == "🔘 Botões e entradas":
+
+    st.title("🔘 Botões e campos de entrada")
+
+    st.write(
+        "Esses componentes permitem que o usuário interaja "
+        "com sua aplicação."
+    )
+
+    st.subheader("st.button()")
+
+    st.write("Cria um botão.")
+
+    st.code(
+        '''if st.button("Clique aqui"):
+    st.success("Você clicou no botão!")''',
+        language="python"
+    )
+
+    if st.button("Clique aqui"):
+        st.success("Você clicou no botão!")
+
+    st.divider()
+
+    st.subheader("st.text_input()")
+
+    st.write("Cria um campo para entrada de texto.")
+
+    st.code(
+        'nome = st.text_input("Digite seu nome")',
+        language="python"
+    )
+
+    nome = st.text_input("Digite seu nome")
+
+    if nome:
+        st.write(f"Olá, {nome}!")
+
+    st.divider()
+
+    st.subheader("st.number_input()")
+
+    st.write("Permite que o usuário informe um número.")
+
+    st.code(
+        '''idade = st.number_input(
+    "Digite sua idade",
+    min_value=0,
+    max_value=120
+)''',
+        language="python"
+    )
+
+    idade = st.number_input(
+        "Digite sua idade",
+        min_value=0,
+        max_value=120
+    )
+
+    st.write("Valor:", idade)
+
+    st.divider()
+
+    st.subheader("st.selectbox()")
+
+    st.write("Cria uma lista de opções.")
+
+    st.code(
+        '''opcao = st.selectbox(
+    "Escolha uma opção",
+    ["Python", "Java", "JavaScript"]
+)''',
+        language="python"
+    )
+
+    opcao = st.selectbox(
+        "Escolha uma opção",
+        ["Python", "Java", "JavaScript"]
+    )
+
+    st.write("Você escolheu:", opcao)
+
+    st.divider()
+
+    st.subheader("st.checkbox()")
+
+    st.code(
+        'aceito = st.checkbox("Aceito os termos")',
+        language="python"
+    )
+
+    aceito = st.checkbox("Aceito os termos")
+
+    if aceito:
+        st.success("Opção selecionada!")
+
+
+# ============================================================
+# LAYOUT
+# ============================================================
+
+elif pagina == "📐 Layout":
+
+    st.title("📐 Layout")
+
+    st.write(
+        "O Streamlit possui componentes para organizar "
+        "os elementos da página."
+    )
+
+    st.subheader("st.columns()")
+
+    st.write("Cria colunas.")
+
+    st.code(
+        '''col1, col2 = st.columns(2)
 
 with col1:
     st.write("Coluna 1")
 
 with col2:
-    st.write("Coluna 2")
-```
+    st.write("Coluna 2")''',
+        language="python"
+    )
 
----
+    col1, col2 = st.columns(2)
 
-### 📊 Dados e gráficos
+    with col1:
+        st.info("Coluna 1")
 
-Integração com **Pandas** e recursos de visualização do Streamlit.
+    with col2:
+        st.success("Coluna 2")
 
-São apresentados:
+    st.divider()
 
-- `st.dataframe()`
-- `st.metric()`
-- `st.line_chart()`
-- `st.bar_chart()`
-- `st.area_chart()`
+    st.subheader("st.tabs()")
 
-Exemplo:
+    st.write("Cria abas.")
 
-```python
-import pandas as pd
+    st.code(
+        '''aba1, aba2 = st.tabs(["Dados", "Gráfico"])
+
+with aba1:
+    st.write("Dados")
+
+with aba2:
+    st.write("Gráfico")''',
+        language="python"
+    )
+
+    aba1, aba2 = st.tabs(["Dados", "Gráfico"])
+
+    with aba1:
+        st.write("Conteúdo da aba Dados")
+
+    with aba2:
+        st.write("Conteúdo da aba Gráfico")
+
+    st.divider()
+
+    st.subheader("st.expander()")
+
+    st.write("Cria uma área que pode ser expandida.")
+
+    st.code(
+        '''with st.expander("Clique para abrir"):
+    st.write("Conteúdo escondido")''',
+        language="python"
+    )
+
+    with st.expander("Clique para abrir"):
+        st.write("Conteúdo escondido")
+
+
+# ============================================================
+# DADOS E GRÁFICOS
+# ============================================================
+
+elif pagina == "📊 Dados e gráficos":
+
+    st.title("📊 Dados e gráficos")
+
+    st.write(
+        "O Streamlit funciona muito bem com Pandas e bibliotecas "
+        "de análise de dados."
+    )
+
+    st.subheader("st.dataframe()")
+
+    st.write("Exibe uma tabela interativa.")
+
+    st.code(
+        '''import pandas as pd
 
 df = pd.DataFrame({
     "Produto": ["A", "B", "C"],
     "Vendas": [100, 200, 150]
 })
 
-st.dataframe(df)
-```
+st.dataframe(df)''',
+        language="python"
+    )
 
----
+    import pandas as pd
 
-### 💬 Mensagens
+    df = pd.DataFrame({
+        "Produto": ["Produto A", "Produto B", "Produto C"],
+        "Vendas": [100, 200, 150]
+    })
 
-Exemplos de mensagens para comunicação com o usuário:
+    st.dataframe(
+        df,
+        use_container_width=True,
+        hide_index=True
+    )
 
-- `st.success()`
-- `st.info()`
-- `st.warning()`
-- `st.error()`
+    st.divider()
 
-Exemplo:
+    st.subheader("st.metric()")
 
-```python
-st.success("Operação concluída!")
-st.info("Esta é uma informação.")
-st.warning("Atenção!")
-st.error("Ocorreu um erro!")
-```
+    st.write("Exibe uma métrica ou indicador.")
 
----
+    st.code(
+        'st.metric("Vendas", "R$ 25.000", "+12%")',
+        language="python"
+    )
 
-### 📁 Arquivos
+    col1, col2, col3 = st.columns(3)
 
-Demonstração de upload de arquivos utilizando:
+    with col1:
+        st.metric("Vendas", "R$ 25.000", "+12%")
 
-```python
-st.file_uploader()
-```
+    with col2:
+        st.metric("Clientes", "1.250", "+8%")
 
-O exemplo permite trabalhar com arquivos como:
+    with col3:
+        st.metric("Pedidos", "580", "+15%")
 
-- CSV
-- XLSX
-- PDF
+    st.divider()
 
-Exemplo:
+    st.subheader("Gráficos")
 
-```python
-arquivo = st.file_uploader(
+    st.write("O Streamlit possui comandos simples para gráficos.")
+
+    st.code(
+        '''st.line_chart(df)
+st.bar_chart(df)
+st.area_chart(df)''',
+        language="python"
+    )
+
+    st.line_chart(df.set_index("Produto"))
+
+    st.bar_chart(df.set_index("Produto"))
+
+
+# ============================================================
+# MENSAGENS
+# ============================================================
+
+elif pagina == "💬 Mensagens":
+
+    st.title("💬 Mensagens")
+
+    st.write(
+        "Use mensagens para informar o usuário sobre o estado "
+        "de uma operação."
+    )
+
+    st.subheader("st.success()")
+
+    st.code(
+        'st.success("Operação concluída!")',
+        language="python"
+    )
+
+    st.success("Operação concluída!")
+
+    st.subheader("st.info()")
+
+    st.code(
+        'st.info("Esta é uma informação.")',
+        language="python"
+    )
+
+    st.info("Esta é uma informação.")
+
+    st.subheader("st.warning()")
+
+    st.code(
+        'st.warning("Atenção!")',
+        language="python"
+    )
+
+    st.warning("Atenção!")
+
+    st.subheader("st.error()")
+
+    st.code(
+        'st.error("Ocorreu um erro.")',
+        language="python"
+    )
+
+    st.error("Ocorreu um erro!")
+
+
+# ============================================================
+# ARQUIVOS
+# ============================================================
+
+elif pagina == "📁 Arquivos":
+
+    st.title("📁 Upload de arquivos")
+
+    st.write(
+        "Use `st.file_uploader()` para permitir que o usuário "
+        "envie arquivos."
+    )
+
+    st.code(
+        '''arquivo = st.file_uploader(
     "Escolha um arquivo",
     type=["csv", "xlsx", "pdf"]
 )
 
 if arquivo:
-    st.success(f"Arquivo recebido: {arquivo.name}")
-```
+    st.success("Arquivo recebido!")''',
+        language="python"
+    )
 
----
+    arquivo = st.file_uploader(
+        "Escolha um arquivo",
+        type=["csv", "xlsx", "pdf"]
+    )
 
-### 🧩 Componentes
+    if arquivo:
+        st.success(
+            f"Arquivo recebido: {arquivo.name}"
+        )
 
-Apresentação de outros componentes úteis:
+        st.write(
+            "Tamanho:",
+            arquivo.size,
+            "bytes"
+        )
 
-- `st.divider()`
-- `st.image()`
-- `st.progress()`
-- `st.spinner()`
 
----
+# ============================================================
+# COMPONENTES
+# ============================================================
 
-### ⚙️ Configuração
+elif pagina == "🧩 Componentes":
 
-Exemplo de configuração da aplicação através de:
+    st.title("🧩 Outros componentes úteis")
 
-```python
-st.set_page_config(
+    st.subheader("st.divider()")
+
+    st.write(
+        "Cria uma linha horizontal para separar seções."
+    )
+
+    st.code(
+        "st.divider()",
+        language="python"
+    )
+
+    st.divider()
+
+    st.subheader("st.image()")
+
+    st.write(
+        "Exibe uma imagem."
+    )
+
+    st.code(
+        '''st.image(
+    "imagem.jpg",
+    caption="Minha imagem"
+)''',
+        language="python"
+    )
+
+    st.subheader("st.progress()")
+
+    st.write("Cria uma barra de progresso.")
+
+    st.code(
+        'st.progress(70)',
+        language="python"
+    )
+
+    st.progress(70)
+
+    st.subheader("st.spinner()")
+
+    st.write(
+        "Mostra uma indicação enquanto uma operação está acontecendo."
+    )
+
+    st.code(
+        '''with st.spinner("Processando..."):
+    # operação
+    pass''',
+        language="python"
+    )
+
+
+# ============================================================
+# CONFIGURAÇÃO
+# ============================================================
+
+elif pagina == "⚙️ Configuração":
+
+    st.title("⚙️ Configuração da página")
+
+    st.write(
+        "O comando `st.set_page_config()` deve normalmente "
+        "ser executado no início da aplicação."
+    )
+
+    st.code(
+        '''st.set_page_config(
     page_title="Meu aplicativo",
     page_icon="🚀",
     layout="wide"
-)
-```
+)''',
+        language="python"
+    )
 
-Também é apresentado o uso da barra lateral:
+    st.subheader("page_title")
 
-```python
-with st.sidebar:
+    st.write(
+        "Define o título exibido na aba do navegador."
+    )
+
+    st.subheader("page_icon")
+
+    st.write(
+        "Define o ícone da página."
+    )
+
+    st.subheader("layout")
+
+    st.write(
+        "Pode ser utilizado para definir a largura da aplicação."
+    )
+
+    st.code(
+        'layout="wide"',
+        language="python"
+    )
+
+    st.divider()
+
+    st.subheader("Barra lateral")
+
+    st.code(
+        '''with st.sidebar:
     st.title("Menu")
-```
+    st.button("Início")
+    st.button("Configurações")''',
+        language="python"
+    )
 
----
+    with st.sidebar:
+        st.write("Este conteúdo está na barra lateral.")
 
-### 🚀 Exemplo completo
 
-A última seção apresenta um pequeno **Dashboard de Vendas**, combinando diversos recursos apresentados durante o guia.
+# ============================================================
+# EXEMPLO COMPLETO
+# ============================================================
 
-O dashboard utiliza:
+elif pagina == "🚀 Exemplo completo":
 
-- Métricas
-- DataFrame
-- Gráfico de barras
-- Layout com colunas
-- Títulos e subtítulos
+    st.title("🚀 Exemplo completo")
 
----
+    st.write(
+        "Abaixo está um pequeno dashboard combinando "
+        "vários comandos do Streamlit."
+    )
 
-## 🛠️ Tecnologias utilizadas
-
-O projeto utiliza:
-
-| Tecnologia | Utilização |
-|---|---|
-| 🐍 Python | Linguagem principal |
-| 🎈 Streamlit | Desenvolvimento da interface web |
-| 🐼 Pandas | Manipulação de dados |
-| 📝 Markdown | Documentação e formatação |
-
----
-
-## 📋 Pré-requisitos
-
-Antes de executar o projeto, é necessário ter o **Python** instalado.
-
-Recomenda-se utilizar um ambiente virtual para manter as dependências do projeto isoladas.
-
-Verifique a instalação do Python:
-
-```bash
-python --version
-```
-
-Ou:
-
-```bash
-python3 --version
-```
-
----
-
-## 📦 Instalação
-
-### 1. Clone o projeto
-
-```bash
-git clone URL_DO_SEU_REPOSITORIO
-```
-
-Entre na pasta:
-
-```bash
-cd nome-do-projeto
-```
-
----
-
-### 2. Crie um ambiente virtual
-
-No Windows:
-
-```bash
-python -m venv .venv
-```
-
-Ative o ambiente:
-
-```bash
-.venv\Scripts\activate
-```
-
-No Linux/macOS:
-
-```bash
-python3 -m venv .venv
-```
-
-Ative:
-
-```bash
-source .venv/bin/activate
-```
-
----
-
-### 3. Instale as dependências
-
-Instale o Streamlit e o Pandas:
-
-```bash
-pip install streamlit pandas
-```
-
-Ou, caso o projeto possua um arquivo `requirements.txt`:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## ▶️ Executando o projeto
-
-É importante executar uma aplicação Streamlit utilizando o comando `streamlit run`.
-
-Execute:
-
-```bash
-streamlit run pagina.py
-```
-
-Ou:
-
-```bash
-python -m streamlit run pagina.py
-```
-
-Depois da inicialização, o Streamlit disponibilizará a aplicação localmente, normalmente em:
-
-```text
-http://localhost:8501
-```
-
----
-
-## ⚠️ Importante
-
-Não execute a aplicação utilizando:
-
-```bash
-python pagina.py
-```
-
-Aplicações Streamlit devem ser iniciadas através de:
-
-```bash
-streamlit run pagina.py
-```
-
-ou:
-
-```bash
-python -m streamlit run pagina.py
-```
-
-Executar diretamente com `python` pode gerar mensagens como:
-
-```text
-missing ScriptRunContext
-```
-
-e:
-
-```text
-Session state does not function when running a script without `streamlit run`
-```
-
-Essas mensagens acontecem porque a aplicação não foi iniciada através do mecanismo de execução do Streamlit.
-
----
-
-## ⚠️ Cuidado com o nome dos arquivos
-
-Evite criar um arquivo chamado:
-
-```text
-streamlit.py
-```
-
-Isso pode causar conflito com a biblioteca oficial:
-
-```python
-import streamlit as st
-```
-
-Por exemplo, prefira:
-
-```text
-pagina.py
-guia_streamlit.py
-app.py
-```
-
-em vez de:
-
-```text
-streamlit.py
-```
-
----
-
-## 📁 Estrutura sugerida
-
-Uma estrutura simples para o projeto:
-
-```text
-learning-streamlit/
-│
-├── pagina.py
-├── README.md
-├── requirements.txt
-├── .gitignore
-└── .venv/
-```
-
-O diretório `.venv/` normalmente não deve ser enviado para o Git.
-
----
-
-## 📄 requirements.txt
-
-Para registrar as principais dependências do projeto, crie um arquivo chamado:
-
-```text
-requirements.txt
-```
-
-Com:
-
-```text
-streamlit
-pandas
-```
-
-Depois, qualquer pessoa poderá instalar as dependências utilizando:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 🎯 Objetivos de aprendizado
-
-Este projeto tem como objetivos praticar:
-
-- Fundamentos do Streamlit
-- Criação de interfaces web utilizando Python
-- Componentes interativos
-- Layout de aplicações
-- Entrada de dados
-- Manipulação de DataFrames
-- Criação de gráficos
-- Upload de arquivos
-- Dashboards
-- Organização de aplicações Streamlit
-
----
-
-## 🔮 Possíveis melhorias futuras
-
-Algumas funcionalidades que podem ser adicionadas futuramente:
-
-- 🔎 Pesquisa de comandos
-- 📋 Botão para copiar exemplos de código
-- 📚 Mais comandos do Streamlit
-- 🎨 Temas personalizados
-- 🌙 Modo claro/escuro
-- 📊 Mais exemplos de gráficos
-- 🤖 Exemplos de integração com Inteligência Artificial
-- 🗂️ Separação da aplicação em múltiplas páginas
-- 📱 Melhor adaptação para dispositivos móveis
-- 🧪 Área para testar pequenos códigos
-- 📖 Links para a documentação oficial
-
----
-
-## 📖 Conceito principal
-
-A estrutura básica de uma aplicação Streamlit pode ser resumida em:
-
-```python
-import streamlit as st
+    st.code(
+        '''import streamlit as st
+import pandas as pd
 
 st.set_page_config(
-    page_title="Minha aplicação",
-    page_icon="🐍"
+    page_title="Dashboard",
+    page_icon="📊",
+    layout="wide"
 )
 
-st.title("Minha aplicação")
+st.title("📊 Dashboard de Vendas")
 
-st.write("Olá, mundo!")
-```
+col1, col2, col3 = st.columns(3)
 
-A partir dessa estrutura, novos componentes podem ser adicionados para criar aplicações cada vez mais completas.
+with col1:
+    st.metric("Vendas", "R$ 50.000")
 
----
+with col2:
+    st.metric("Clientes", "2.500")
 
-## 📌 Comandos apresentados
+with col3:
+    st.metric("Pedidos", "850")
 
-Resumo dos principais comandos utilizados no projeto:
+df = pd.DataFrame({
+    "Mês": ["Jan", "Fev", "Mar", "Abr"],
+    "Vendas": [10000, 15000, 12000, 18000]
+})
 
-```text
-st.set_page_config()
-st.title()
-st.header()
-st.subheader()
-st.write()
-st.markdown()
-st.code()
-st.caption()
+st.subheader("Vendas por mês")
 
-st.button()
-st.text_input()
-st.number_input()
-st.selectbox()
-st.checkbox()
+st.bar_chart(
+    df.set_index("Mês")
+)
 
-st.columns()
-st.tabs()
-st.expander()
+st.dataframe(
+    df,
+    use_container_width=True
+)''',
+        language="python"
+    )
+
+    st.divider()
+
+    st.subheader("Resultado")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric("Vendas", "R$ 50.000")
+
+    with col2:
+        st.metric("Clientes", "2.500")
+
+    with col3:
+        st.metric("Pedidos", "850")
+
+    df = pd.DataFrame({
+        "Mês": ["Jan", "Fev", "Mar", "Abr"],
+        "Vendas": [10000, 15000, 12000, 18000]
+    })
+
+    st.subheader("Vendas por mês")
+
+    st.bar_chart(
+        df.set_index("Mês")
+    )
+
+    st.dataframe(
+        df,
+        use_container_width=True
+    )
+
+
+# ============================================================
+# RODAPÉ
+# ============================================================
+
 st.divider()
-st.sidebar
 
-st.dataframe()
-st.metric()
-st.line_chart()
-st.bar_chart()
-st.area_chart()
-
-st.success()
-st.info()
-st.warning()
-st.error()
-
-st.file_uploader()
-st.image()
-st.progress()
-st.spinner()
-```
-
----
-
-## 👨‍💻 Sobre o projeto
-
-Este projeto faz parte do processo de aprendizado em **Python, Streamlit e desenvolvimento de aplicações interativas**.
-
-A aplicação foi construída com foco educacional, permitindo experimentar os principais recursos do Streamlit em uma única interface.
-
----
-
-## 📜 Licença
-
-Este projeto pode ser utilizado para fins de estudo, aprendizado e experimentação.
-
----
-
-**🐍 Learning Streamlit — Raphael Campos Squilaro**
+st.caption(
+    "🐍 Guia de comandos Streamlit — desenvolvido em Python"
+)
